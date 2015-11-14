@@ -3,6 +3,12 @@ import org.specs2.mutable._
 object ArrayTransformsSpec extends Specification {
   "slideLeft" should {
 
+    "do nothing for array of None" in {
+      val array = Array[Option[Int]](None, None, None, None)
+
+      ArrayTransforms.slideLeft(array) must beEqualTo(Array[Option[Int]](None, None, None, None))
+    }
+
     "merge consecutive twos" in {
       val array = Array(Some(2),Some(2),None,None)
 
@@ -15,6 +21,11 @@ object ArrayTransformsSpec extends Specification {
       ArrayTransforms.slideLeft(array) must beEqualTo(Array(Some(2), Some(4),None,None))
     }
 
+    "not modify full array with no adjacent numbers" in {
+      val array = Array[Option[Int]](Some(2),Some(4),Some(2),Some(4))
+
+      ArrayTransforms.slideLeft(array) must beEqualTo(Array[Option[Int]](Some(2),Some(4),Some(2),Some(4)))
+    }
   }
 }
 
