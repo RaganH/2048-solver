@@ -58,6 +58,43 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
     new GameBoard(newBoard)
   }
 
+  def slideUp(): GameBoard = {
+
+    val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
+
+    val transformedSlices = slices.map(s => ArrayTransforms.slideLeft(s.toArray))
+
+    val newBoard = Array.tabulate[Option[Int]](board.length, board.length)((x,y) => None)
+
+    for(i <- 0 until board.length; j <- 0 until board.length)
+      newBoard(i)(j) = transformedSlices(j)(i)
+
+    GameBoard.insertRandomNumber(newBoard, 2)
+
+    new GameBoard(newBoard)
+  }
+
+  def slideDown(): GameBoard = {
+
+    val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
+
+    val transformedSlices = slices.map(s => ArrayTransforms.slideRight(s.toArray))
+
+    val newBoard = Array.tabulate[Option[Int]](board.length, board.length)((x,y) => None)
+
+    for(i <- 0 until board.length; j <- 0 until board.length)
+      newBoard(i)(j) = transformedSlices(j)(i)
+
+    GameBoard.insertRandomNumber(newBoard, 2)
+
+    new GameBoard(newBoard)
+  }
+
+  def getVerticalSlice[T](array : Array[Array[T]], colIndex : Int) : Seq[T] = {
+    for(i <- 0 until array.length) // TODO: This is only correct for square arrays
+      yield array(i)(colIndex)
+  }
+  
   def draw(): Unit = {
 
     val maxTile = board.flatten.map((x) => x.getOrElse(0)).max

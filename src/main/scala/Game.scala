@@ -18,7 +18,9 @@ object Game extends App {
       gameRunning = false
 
     key match {
+      case "w" => gameBoard = gameBoard.slideUp()
       case "a" => gameBoard = gameBoard.slideLeft()
+      case "s" => gameBoard = gameBoard.slideDown()
       case "d" => gameBoard = gameBoard.slideRight()
       case _ =>
     }
