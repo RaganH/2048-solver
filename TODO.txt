@@ -1,0 +1,12 @@
+Implementing 2048
+-----------------
+
+Detect when the game has finished
+Detect what directions are available to move in
+
+Solver
+-----------------
+
+Implement simple algorithm to provide correct hooks into game
+
+
