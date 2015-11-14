@@ -13,15 +13,25 @@ object GameBoard{
   }
 
   def insertRandomNumber(board: Array[Array[Option[Int]]], toInsert : Int) : Unit = {
-    //TODO: Fix this, doesn't always overwrite empty cell
+
     val random = new Random()
 
-    val x = random.nextInt(board.length)
-    val y = random.nextInt(board.length)
+    val emptyCoords = findEmptyCoords(board)
+
+    val (x,y) = emptyCoords(random.nextInt(emptyCoords.length))
 
     board(x)(y) = Some(toInsert)
   }
 
+  def findEmptyCoords(board: Array[Array[Option[Int]]]) : Seq[(Int, Int)] = {
+
+    for (i <- 0 until board.length;
+         j <- 0 until board.length
+        if board(i)(j) == None)
+        yield {
+            (i,j)
+        }
+  }
 }
 
 class GameBoard(val board : Array[Array[Option[Int]]]) {
