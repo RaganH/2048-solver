@@ -47,6 +47,17 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
     new GameBoard(newBoard)
   }
 
+  def slideRight(): GameBoard = {
+
+    val newBoard = board.map(
+      a => ArrayTransforms.slideRight(a)
+    )
+
+    GameBoard.insertRandomNumber(newBoard, 2)
+
+    new GameBoard(newBoard)
+  }
+
   def draw(): Unit = {
 
     val maxTile = board.flatten.map((x) => x.getOrElse(0)).max

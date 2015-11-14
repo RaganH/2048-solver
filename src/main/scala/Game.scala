@@ -17,8 +17,12 @@ object Game extends App {
     if (key.isEmpty)
       gameRunning = false
 
-    if (key == "l")
-      gameBoard = gameBoard.slideLeft()
+    key match {
+      case "a" => gameBoard = gameBoard.slideLeft()
+      case "d" => gameBoard = gameBoard.slideRight()
+      case _ =>
+    }
+
 
     gameBoard.draw()
   }
