@@ -1,8 +1,11 @@
 Implementing 2048
 -----------------
 
-Detect when the game has finished
 Detect what directions are available to move in
+Dont generate new tile if user moves in direction that doesn't move existing
+tiles
+
+Generate 2s as well as 4s
 
 Solver
 -----------------

@@ -25,8 +25,13 @@ object Game extends App {
       case _ =>
     }
 
-
     gameBoard.draw()
+
+    if (gameBoard.isFinished) {
+      println("---------------------")
+      println("Game over!")
+      gameRunning = false
+    }
   }
 
 }
