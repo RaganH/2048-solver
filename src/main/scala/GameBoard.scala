@@ -1,19 +1,40 @@
 import scala.util.Random
 
-class GameBoard(val size : Int) {
+object GameBoard{
 
-  val board = Array.tabulate[Option[Int]](size, size)((x,y) => None)
+  def apply(size : Int) : GameBoard = {
 
-  insertRandomNumber()
-  insertRandomNumber()
+    val board = Array.tabulate[Option[Int]](size, size)((x,y) => None)
 
-  def insertRandomNumber(): Unit = {
+    insertRandomNumber(board, 2)
+    insertRandomNumber(board, 2)
+
+    new GameBoard(board)
+  }
+
+  def insertRandomNumber(board: Array[Array[Option[Int]]], toInsert : Int) : Unit = {
+    //TODO: Fix this, doesn't always overwrite empty cell
     val random = new Random()
 
-    val x = random.nextInt(size)
-    val y = random.nextInt(size)
+    val x = random.nextInt(board.length)
+    val y = random.nextInt(board.length)
 
-    board(x)(y) = Some(2)
+    board(x)(y) = Some(toInsert)
+  }
+
+}
+
+class GameBoard(val board : Array[Array[Option[Int]]]) {
+
+  def slideLeft() : GameBoard = {
+
+    val newBoard = board.map(
+      a => ArrayTransforms.slideLeft(a)
+    )
+
+    GameBoard.insertRandomNumber(newBoard, 2)
+
+    new GameBoard(newBoard)
   }
 
   def draw(): Unit = {
