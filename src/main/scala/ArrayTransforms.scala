@@ -10,16 +10,10 @@ object ArrayTransforms {
       return true // not empty but not full (has gaps)
 
     //row is full
-    var prevTile = boardSlice(0).get
-    for(tile <- boardSlice.map(t => t.get).drop(1))
-      {
-        if(prevTile == tile)
-          return true
+    val tiles = boardSlice.map(t => t.get)
+    val tilePairs = tiles zip tiles.drop(1)
 
-        prevTile = tile
-      }
-
-    false
+    tilePairs.exists({case (i,j) => i == j})
   }
 
   def slideLeft(boardSlice: Array[Option[Int]]): Array[Option[Int]] = {

@@ -2,7 +2,7 @@ import org.specs2.mutable._
 
 object ArrayTransformsSpec extends Specification {
 
-  "can slide left" should {
+  "can slide" should {
 
     "be false when row is empty" in {
       val array = Array[Option[Int]](None, None, None, None)
