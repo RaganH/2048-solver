@@ -1,6 +1,26 @@
 import scala.collection.immutable.Stack
 
 object ArrayTransforms {
+  
+  def canSlide(boardSlice: Array[Option[Int]]): Boolean = {
+    if(boardSlice.forall(t => !t.isDefined))
+      return false // empty row
+
+    if (!boardSlice.forall(t => t.isDefined))
+      return true // not empty but not full (has gaps)
+
+    //row is full
+    var prevTile = boardSlice(0).get
+    for(tile <- boardSlice.map(t => t.get).drop(1))
+      {
+        if(prevTile == tile)
+          return true
+
+        prevTile = tile
+      }
+
+    false
+  }
 
   def slideLeft(boardSlice: Array[Option[Int]]): Array[Option[Int]] = {
 
