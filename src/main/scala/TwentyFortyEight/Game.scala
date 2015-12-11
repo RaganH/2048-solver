@@ -17,7 +17,10 @@ object Game extends App {
 
     val slideDirection = player.getMoveDirection(gameBoard)
 
-    gameBoard = gameBoard.slide(slideDirection)
+    if (gameBoard.canSlide(slideDirection))
+    {
+      gameBoard = gameBoard.slide(slideDirection)
+    }
   }
 
   if (gameBoard.isFinished) {

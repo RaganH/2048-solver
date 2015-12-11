@@ -51,63 +51,93 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
     true
   }
 
-  def slide(direction : Direction) = {
+  def canSlide(direction : Direction) : Boolean = {
+
+    def canSlideLeft : Boolean = {
+      board.exists(ArrayTransforms.canSlideLeft(_))
+    }
+
+    def canSlideRight : Boolean = {
+      board.exists(ArrayTransforms.canSlideRight(_))
+    }
+
+    def canSlideUp : Boolean = {
+      val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
+
+      slices.exists(s => ArrayTransforms.canSlideLeft(s.toArray))
+    }
+
+    def canSlideDown : Boolean = {
+      val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
+
+      slices.exists(s => ArrayTransforms.canSlideRight(s.toArray))
+    }
 
     direction match {
-      case Left => slideLeft()
-      case Right => slideRight()
-      case Up => slideUp()
-      case Down => slideDown()
+      case Left => canSlideLeft
+      case Right => canSlideRight
+      case Up => canSlideUp
+      case Down => canSlideDown
     }
   }
 
-  def slideLeft() : GameBoard = {
+  def slide(direction : Direction) : GameBoard = {
 
-    val newBoard = board.map(
-      a => ArrayTransforms.slideLeft(a)
-    )
+    def slideLeft() : GameBoard = {
 
-    GameBoard.insertRandomNumber(newBoard)
+      val newBoard = board.map(
+        a => ArrayTransforms.slideLeft(a)
+      )
 
-    new GameBoard(newBoard)
-  }
+      GameBoard.insertRandomNumber(newBoard)
 
-  def slideRight(): GameBoard = {
+      new GameBoard(newBoard)
+    }
 
-    val newBoard = board.map(a => ArrayTransforms.slideRight(a))
+    def slideRight(): GameBoard = {
 
-    GameBoard.insertRandomNumber(newBoard)
+      val newBoard = board.map(a => ArrayTransforms.slideRight(a))
 
-    new GameBoard(newBoard)
-  }
+      GameBoard.insertRandomNumber(newBoard)
 
-  def slideUp(): GameBoard = {
+      new GameBoard(newBoard)
+    }
 
-    val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
+    def slideUp(): GameBoard = {
 
-    val transformedSlices = slices.map(s => ArrayTransforms.slideLeft(s.toArray))
+      val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
 
-    val newBoard = Array.tabulate[Option[Int]](board.length, board.length)((x,y) => None)
+      val transformedSlices = slices.map(s => ArrayTransforms.slideLeft(s.toArray))
 
-    for(i <- 0 until board.length; j <- 0 until board.length)
-      newBoard(i)(j) = transformedSlices(j)(i)
+      val newBoard = Array.tabulate[Option[Int]](board.length, board.length)((x,y) => None)
 
-    GameBoard.insertRandomNumber(newBoard)
+      for(i <- 0 until board.length; j <- 0 until board.length)
+        newBoard(i)(j) = transformedSlices(j)(i)
 
-    new GameBoard(newBoard)
-  }
+      GameBoard.insertRandomNumber(newBoard)
 
-  def slideDown(): GameBoard = {
+      new GameBoard(newBoard)
+    }
 
-    val slices = TranslateBoardToVertical
+    def slideDown(): GameBoard = {
 
-    val transformedSlices = slices.map(s => ArrayTransforms.slideRight(s.toArray))
+      val slices = TranslateBoardToVertical
 
-    val newBoard = TranslateSlicesFromVertical(transformedSlices)
+      val transformedSlices = slices.map(s => ArrayTransforms.slideRight(s.toArray))
 
-    GameBoard.insertRandomNumber(newBoard)
+      val newBoard = TranslateSlicesFromVertical(transformedSlices)
 
-    new GameBoard(newBoard)
+      GameBoard.insertRandomNumber(newBoard)
+
+      new GameBoard(newBoard)
+    }
+
+    direction match {
+      case Left => slideLeft
+      case Right => slideRight
+      case Up => slideUp
+      case Down => slideDown
+    }
   }
 
   def TranslateSlicesFromVertical(transformedSlices: IndexedSeq[Array[Option[Int]]]): Array[Array[Option[Int]]] = {

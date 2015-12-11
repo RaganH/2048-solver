@@ -1,11 +1,4 @@
-Implementing 2048
------------------
-
-Don't generate new tile if user moves in direction that doesn't move existing tiles
-
 Solver
 -----------------
 
 Implement simple algorithm to provide correct hooks into game
-
-
