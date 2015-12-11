@@ -4,30 +4,42 @@ import org.specs2.mutable._
 
 object ArrayTransformsSpec extends Specification {
 
-  "can slide" should {
+  "can slide left" should {
 
     "be false when row is empty" in {
       val array = Array[Option[Int]](None, None, None, None)
 
-      ArrayTransforms.canSlide(array) must beFalse
+      ArrayTransforms.canSlideLeft(array) must beFalse
     }
 
-    "be false when row is full an no consequetive tiles are the same" in {
+    "be false when row is full and no consecutive tiles are the same" in {
       val array = Array[Option[Int]](Some(2), Some(4), Some(2), Some(4))
 
-      ArrayTransforms.canSlide(array) must beFalse
+      ArrayTransforms.canSlideLeft(array) must beFalse
     }
 
-    "be true when row is full but consequetive tiles would merge" in {
+    "be true when row is full but consecutive tiles would merge" in {
       val array = Array[Option[Int]](Some(4), Some(4), Some(2), Some(4))
 
-      ArrayTransforms.canSlide(array) must beTrue
+      ArrayTransforms.canSlideLeft(array) must beTrue
     }
 
-    "be true when row has gaps" in {
+    "be true when row has gaps tiles can slide into" in {
       val array = Array[Option[Int]](Some(4), None, Some(2), Some(4))
 
-      ArrayTransforms.canSlide(array) must beTrue
+      ArrayTransforms.canSlideLeft(array) must beTrue
+    }
+
+    "be false when row has gaps but no tiles can slide" in {
+      val array = Array[Option[Int]](Some(4), Some(2), None, None)
+
+      ArrayTransforms.canSlideLeft(array) must beFalse
+    }
+
+    "be true when row has gaps and tiles can merge" in {
+      val array = Array[Option[Int]](Some(4), Some(4), None, None)
+
+      ArrayTransforms.canSlideLeft(array) must beTrue
     }
   }
 

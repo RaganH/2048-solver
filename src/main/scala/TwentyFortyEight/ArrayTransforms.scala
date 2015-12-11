@@ -4,18 +4,17 @@ import scala.collection.immutable.Stack
 
 object ArrayTransforms {
   
-  def canSlide(boardSlice: Array[Option[Int]]): Boolean = {
-    if(boardSlice.forall(t => !t.isDefined))
-      return false // empty row
+  def canSlideLeft(boardSlice: Array[Option[Int]]): Boolean = {
+    val newSlice = slideLeft(boardSlice)
 
-    if (!boardSlice.forall(t => t.isDefined))
-      return true // not empty but not full (has gaps)
+    newSlice.deep != boardSlice.deep
+  }
 
-    //row is full
-    val tiles = boardSlice.map(t => t.get)
-    val tilePairs = tiles zip tiles.drop(1)
+  def slideRight(boardSlice: Array[Option[Int]]): Array[Option[Int]] = {
 
-    tilePairs.exists({case (i,j) => i == j})
+    val reversedSlice = boardSlice.reverse
+
+    slideLeft(reversedSlice).reverse
   }
 
   def slideLeft(boardSlice: Array[Option[Int]]): Array[Option[Int]] = {
@@ -35,12 +34,5 @@ object ArrayTransforms {
       }
 
     stack.toArray.reverse.map(x => Some(x)).padTo(boardSlice.length, None)
-  }
-
-  def slideRight(boardSlice: Array[Option[Int]]): Array[Option[Int]] = {
-
-    val reversedSlice = boardSlice.reverse
-
-    slideLeft(reversedSlice).reverse
   }
 }

@@ -45,6 +45,5 @@ object GameBoardSpec extends Specification {
       board.isFinished must beTrue
 
     }
-
   }
 }
