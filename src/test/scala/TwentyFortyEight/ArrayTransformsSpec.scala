@@ -1,3 +1,5 @@
+package TwentyFortyEight
+
 import org.specs2.mutable._
 
 object ArrayTransformsSpec extends Specification {

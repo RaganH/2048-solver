@@ -1,3 +1,5 @@
+package TwentyFortyEight
+
 import scala.collection.immutable.Stack
 
 object ArrayTransforms {

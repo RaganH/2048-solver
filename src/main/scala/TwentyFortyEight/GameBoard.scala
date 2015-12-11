@@ -1,3 +1,5 @@
+package TwentyFortyEight
+
 import scala.util.Random
 
 object GameBoard{
@@ -60,9 +62,7 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
   def slideRight(): GameBoard = {
 
-    val newBoard = board.map(
-      a => ArrayTransforms.slideRight(a)
-    )
+    val newBoard = board.map(a => ArrayTransforms.slideRight(a))
 
     GameBoard.insertRandomNumber(newBoard, 2)
 
@@ -87,18 +87,28 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
   def slideDown(): GameBoard = {
 
-    val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
+    val slices = TranslateBoardToVertical
 
     val transformedSlices = slices.map(s => ArrayTransforms.slideRight(s.toArray))
 
-    val newBoard = Array.tabulate[Option[Int]](board.length, board.length)((x,y) => None)
-
-    for(i <- 0 until board.length; j <- 0 until board.length)
-      newBoard(i)(j) = transformedSlices(j)(i)
+    val newBoard = TranslateSlicesFromVertical(transformedSlices)
 
     GameBoard.insertRandomNumber(newBoard, 2)
 
     new GameBoard(newBoard)
+  }
+
+  def TranslateSlicesFromVertical(transformedSlices: IndexedSeq[Array[Option[Int]]]): Array[Array[Option[Int]]] = {
+    val newBoard = Array.tabulate[Option[Int]](board.length, board.length)((x,y) => None)
+
+    for (i <- 0 until board.length; j <- 0 until board.length)
+      newBoard(i)(j) = transformedSlices(j)(i)
+    newBoard
+  }
+
+  def TranslateBoardToVertical: IndexedSeq[Seq[Option[Int]]] = {
+    for (i <- 0 until board.length)
+      yield getVerticalSlice(board, i)
   }
 
   def getVerticalSlice[T](array : Array[Array[T]], colIndex : Int) : Seq[T] = {

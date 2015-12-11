@@ -1,3 +1,5 @@
+package TwentyFortyEight
+
 import org.specs2.mutable._
 object GameBoardSpec extends Specification {
   "At start" should {
