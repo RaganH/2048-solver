@@ -10,14 +10,14 @@ object Game extends App {
 
   var gameBoard = GameBoard(4)
 
-  while(!gameBoard.isFinished){
+  while (!gameBoard.isFinished) {
 
     gameBoard.draw()
     println("---------------------")
 
-    val move = player.getNextMove(gameBoard)
+    val slideDirection = player.getMoveDirection(gameBoard)
 
-    gameBoard = move(gameBoard)
+    gameBoard = gameBoard.slide(slideDirection)
   }
 
   if (gameBoard.isFinished) {
@@ -26,7 +26,3 @@ object Game extends App {
     println("Game over!")
   }
 }
-
-
-
-

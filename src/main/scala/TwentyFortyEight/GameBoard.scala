@@ -51,6 +51,16 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
     true
   }
 
+  def slide(direction : Direction) = {
+
+    direction match {
+      case Left => slideLeft()
+      case Right => slideRight()
+      case Up => slideUp()
+      case Down => slideDown()
+    }
+  }
+
   def slideLeft() : GameBoard = {
 
     val newBoard = board.map(

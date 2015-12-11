@@ -1,19 +1,19 @@
 package TwentyFortyEight.players
 
 import scala.io.StdIn
-import TwentyFortyEight.GameBoard
+import TwentyFortyEight.{Down, Up, Direction, GameBoard}
 
 class ConsolePlayer extends Player {
-  override def getNextMove(gameBoard : GameBoard) : GameBoard => GameBoard = {
+  override def getMoveDirection(gameBoard : GameBoard) : Direction = {
 
     val key = StdIn.readLine()
 
     key match {
-      case "w" => g => g.slideUp()
-      case "a" => g => g.slideLeft()
-      case "s" => g => g.slideDown()
-      case "d" => g => g.slideRight()
-      case _ => g => g
+      case "w" => Up
+      case "a" => TwentyFortyEight.Left
+      case "s" => Down
+      case "d" => TwentyFortyEight.Right
+      case _ => getMoveDirection(gameBoard)
     }
   }
 }

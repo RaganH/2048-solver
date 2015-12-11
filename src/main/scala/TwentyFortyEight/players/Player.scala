@@ -1,7 +1,7 @@
 package TwentyFortyEight.players
 
-import TwentyFortyEight.GameBoard
+import TwentyFortyEight.{Direction, GameBoard}
 
 trait Player {
-  def getNextMove(gameBoard : GameBoard) : GameBoard => GameBoard
+  def getMoveDirection(gameBoard : GameBoard) : Direction
 }
