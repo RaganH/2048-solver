@@ -3,7 +3,12 @@ package TwentyFortyEight
 import scala.collection.immutable.Stack
 
 object ArrayTransforms {
-  
+  def canSlideRight(boardSlice: Array[Option[Int]]) : Boolean = {
+    val newSlice = slideRight(boardSlice)
+
+    newSlice.deep != boardSlice.deep
+  }
+
   def canSlideLeft(boardSlice: Array[Option[Int]]): Boolean = {
     val newSlice = slideLeft(boardSlice)
 
