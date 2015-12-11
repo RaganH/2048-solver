@@ -8,19 +8,21 @@ object GameBoard{
 
     val board = Array.tabulate[Option[Int]](size, size)((x,y) => None)
 
-    insertRandomNumber(board, 2)
-    insertRandomNumber(board, 2)
+    insertRandomNumber(board)
+    insertRandomNumber(board)
 
     new GameBoard(board)
   }
 
-  def insertRandomNumber(board: Array[Array[Option[Int]]], toInsert : Int) : Unit = {
+  def insertRandomNumber(board: Array[Array[Option[Int]]]) : Unit = {
 
     val random = new Random()
 
     val emptyCoords = findEmptyCoords(board)
 
     val (x,y) = emptyCoords(random.nextInt(emptyCoords.length))
+
+    val toInsert = if (random.nextDouble() < 0.75) 2 else 4
 
     board(x)(y) = Some(toInsert)
   }
@@ -55,7 +57,7 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
       a => ArrayTransforms.slideLeft(a)
     )
 
-    GameBoard.insertRandomNumber(newBoard, 2)
+    GameBoard.insertRandomNumber(newBoard)
 
     new GameBoard(newBoard)
   }
@@ -64,7 +66,7 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
     val newBoard = board.map(a => ArrayTransforms.slideRight(a))
 
-    GameBoard.insertRandomNumber(newBoard, 2)
+    GameBoard.insertRandomNumber(newBoard)
 
     new GameBoard(newBoard)
   }
@@ -80,7 +82,7 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
     for(i <- 0 until board.length; j <- 0 until board.length)
       newBoard(i)(j) = transformedSlices(j)(i)
 
-    GameBoard.insertRandomNumber(newBoard, 2)
+    GameBoard.insertRandomNumber(newBoard)
 
     new GameBoard(newBoard)
   }
@@ -93,7 +95,7 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
     val newBoard = TranslateSlicesFromVertical(transformedSlices)
 
-    GameBoard.insertRandomNumber(newBoard, 2)
+    GameBoard.insertRandomNumber(newBoard)
 
     new GameBoard(newBoard)
   }
