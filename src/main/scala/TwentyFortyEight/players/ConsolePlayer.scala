@@ -1,7 +1,7 @@
 package TwentyFortyEight.players
 
 import scala.io.StdIn
-import TwentyFortyEight.{Down, Up, Direction, GameBoard}
+import TwentyFortyEight.{Left, Right, Down, Up, Direction, GameBoard}
 
 class ConsolePlayer extends Player {
   override def getMoveDirection(gameBoard : GameBoard) : Direction = {
@@ -10,10 +10,11 @@ class ConsolePlayer extends Player {
 
     key match {
       case "w" => Up
-      case "a" => TwentyFortyEight.Left
+      case "a" => Left
       case "s" => Down
-      case "d" => TwentyFortyEight.Right
+      case "d" => Right
       case _ => getMoveDirection(gameBoard)
     }
   }
 }
+

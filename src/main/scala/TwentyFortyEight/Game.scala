@@ -1,12 +1,12 @@
 package TwentyFortyEight
 
-import TwentyFortyEight.players.ConsolePlayer
+import TwentyFortyEight.players.{EagerlyMergingPlayer, ConsolePlayer}
 
 object Game extends App {
 
   println("Starting 2048")
 
-  var player = new ConsolePlayer()
+  var player = new EagerlyMergingPlayer()
 
   var gameBoard = GameBoard(4)
 

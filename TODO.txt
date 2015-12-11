@@ -2,3 +2,10 @@ Solver
 -----------------
 
 Implement simple algorithm to provide correct hooks into game
+
+
+Bugs
+-----------------
+
+Game terminates when there are still valid moves available.
+Sliding sometimes merges more tiles than it should 2, 2, 4 => 8 - Is this the normal behaviour?
