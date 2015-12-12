@@ -83,18 +83,45 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
   def slide(direction : Direction) : GameBoard = {
 
-    def slideLeft() : Array[Array[Option[Int]]] = {
+    val newBoard = performSlide(direction)
 
+    GameBoard.insertRandomNumber(newBoard)
+
+    new GameBoard(newBoard)
+  }
+
+  def allSlideOutcomes(direction : Direction) : Seq[Chance[GameBoard]] = {
+
+    val newBoard = performSlide(direction)
+
+    GameBoard.findEmptyCoords(newBoard).flatMap({
+      case (x, y) => Array(
+        Chance(0.75, new GameBoard(insertAt(newBoard, x, y, 2))),
+        Chance(0.25, new GameBoard(insertAt(newBoard, x, y, 4)))
+      )
+    })
+  }
+
+  def insertAt(board : Array[Array[Option[Int]]], x : Int, y : Int, value : Int) : Array[Array[Option[Int]]] = {
+
+    val copy = board.map(x => x.map(y => y))
+
+    copy(x)(y) = Some(value)
+
+    copy
+  }
+
+  private[GameBoard] def performSlide(direction : Direction) : Array[Array[Option[Int]]] = {
+
+    def slideLeft() : Array[Array[Option[Int]]] = {
       board.map(a => ArrayTransforms.slideLeft(a))
     }
 
     def slideRight(): Array[Array[Option[Int]]] = {
-
       board.map(a => ArrayTransforms.slideRight(a))
     }
 
     def slideUp(): Array[Array[Option[Int]]] = {
-
       val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
 
       val transformedSlices = slices.map(s => ArrayTransforms.slideLeft(s.toArray))
@@ -108,27 +135,22 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
     }
 
     def slideDown(): Array[Array[Option[Int]]] = {
-
-      val slices = TranslateBoardToVertical
+      val slices = translateBoardToVertical
 
       val transformedSlices = slices.map(s => ArrayTransforms.slideRight(s.toArray))
 
-      TranslateSlicesFromVertical(transformedSlices)
+      translateSlicesFromVertical(transformedSlices)
     }
 
-    val newBoard = direction match {
+    direction match {
       case Left => slideLeft
       case Right => slideRight
       case Up => slideUp
       case Down => slideDown
     }
-
-    GameBoard.insertRandomNumber(newBoard)
-
-    new GameBoard(newBoard)
   }
 
-  def TranslateSlicesFromVertical(transformedSlices: IndexedSeq[Array[Option[Int]]]): Array[Array[Option[Int]]] = {
+  def translateSlicesFromVertical(transformedSlices: IndexedSeq[Array[Option[Int]]]): Array[Array[Option[Int]]] = {
     val newBoard = Array.tabulate[Option[Int]](board.length, board.length)((x,y) => None)
 
     for (i <- 0 until board.length; j <- 0 until board.length)
@@ -136,7 +158,7 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
     newBoard
   }
 
-  def TranslateBoardToVertical: IndexedSeq[Seq[Option[Int]]] = {
+  def translateBoardToVertical: IndexedSeq[Seq[Option[Int]]] = {
     for (i <- 0 until board.length)
       yield getVerticalSlice(board, i)
   }
@@ -147,7 +169,6 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
   }
   
   def draw(): Unit = {
-
     val maxTile = board.flatten.map((x) => x.getOrElse(0)).max
     val maxWidth = maxTile.toString.length
 
