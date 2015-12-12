@@ -41,14 +41,7 @@ object GameBoard{
 class GameBoard(val board : Array[Array[Option[Int]]]) {
 
   def isFinished : Boolean = {
-
-    for (i <- 0 until board.length; j <- 0 until board.length)
-      board(i)(j) match {
-        case Some(x) =>
-        case None => return false
-      }
-
-    true
+    !canSlide(Left) && !canSlide(Right) && !canSlide(Up) && !canSlide(Down)
   }
 
   def canSlide(direction : Direction) : Boolean = {

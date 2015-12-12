@@ -10,7 +10,6 @@ Cleanup
 Break up GameBoard class
 Review use of Arrays and toArray
 
-Bugs
+Known Issues
 -----------------
 
-Game terminates when there are still valid moves available.

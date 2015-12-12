@@ -31,13 +31,28 @@ object GameBoardSpec extends Specification {
 
     }
 
-    "be true when there is no more space for a tile" in {
+    "be false when board is full but merges available" in {
 
       val array = Array(
         Array[Option[Int]](Some(2), Some(2), Some(2), Some(2)),
         Array[Option[Int]](Some(2), Some(2), Some(2), Some(2)),
         Array[Option[Int]](Some(2), Some(2), Some(2), Some(2)),
         Array[Option[Int]](Some(2), Some(2), Some(4), Some(2))
+      )
+
+      val board = new GameBoard(array)
+
+      board.isFinished must beFalse
+
+    }
+
+    "be true when there is no possible merges" in {
+
+      val array = Array(
+        Array[Option[Int]](Some(2),  Some(16), Some(2),  Some(16)),
+        Array[Option[Int]](Some(4),  Some(8),  Some(4),  Some(8)),
+        Array[Option[Int]](Some(8),  Some(4),  Some(8),  Some(4)),
+        Array[Option[Int]](Some(16), Some(2),  Some(16), Some(2))
       )
 
       val board = new GameBoard(array)
