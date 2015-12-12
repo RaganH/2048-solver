@@ -83,27 +83,17 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
   def slide(direction : Direction) : GameBoard = {
 
-    def slideLeft() : GameBoard = {
+    def slideLeft() : Array[Array[Option[Int]]] = {
 
-      val newBoard = board.map(
-        a => ArrayTransforms.slideLeft(a)
-      )
-
-      GameBoard.insertRandomNumber(newBoard)
-
-      new GameBoard(newBoard)
+      board.map(a => ArrayTransforms.slideLeft(a))
     }
 
-    def slideRight(): GameBoard = {
+    def slideRight(): Array[Array[Option[Int]]] = {
 
-      val newBoard = board.map(a => ArrayTransforms.slideRight(a))
-
-      GameBoard.insertRandomNumber(newBoard)
-
-      new GameBoard(newBoard)
+      board.map(a => ArrayTransforms.slideRight(a))
     }
 
-    def slideUp(): GameBoard = {
+    def slideUp(): Array[Array[Option[Int]]] = {
 
       val slices = for(i <- 0 until board.length) yield getVerticalSlice(board, i)
 
@@ -114,30 +104,28 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
       for(i <- 0 until board.length; j <- 0 until board.length)
         newBoard(i)(j) = transformedSlices(j)(i)
 
-      GameBoard.insertRandomNumber(newBoard)
-
-      new GameBoard(newBoard)
+      newBoard
     }
 
-    def slideDown(): GameBoard = {
+    def slideDown(): Array[Array[Option[Int]]] = {
 
       val slices = TranslateBoardToVertical
 
       val transformedSlices = slices.map(s => ArrayTransforms.slideRight(s.toArray))
 
-      val newBoard = TranslateSlicesFromVertical(transformedSlices)
-
-      GameBoard.insertRandomNumber(newBoard)
-
-      new GameBoard(newBoard)
+      TranslateSlicesFromVertical(transformedSlices)
     }
 
-    direction match {
+    val newBoard = direction match {
       case Left => slideLeft
       case Right => slideRight
       case Up => slideUp
       case Down => slideDown
     }
+
+    GameBoard.insertRandomNumber(newBoard)
+
+    new GameBoard(newBoard)
   }
 
   def TranslateSlicesFromVertical(transformedSlices: IndexedSeq[Array[Option[Int]]]): Array[Array[Option[Int]]] = {
