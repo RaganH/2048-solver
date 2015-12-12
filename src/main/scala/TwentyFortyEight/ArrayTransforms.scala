@@ -3,7 +3,7 @@ package TwentyFortyEight
 import scala.collection.immutable.Stack
 
 object ArrayTransforms {
-  def canSlideRight(boardSlice: Array[Option[Int]]) : Boolean = {
+  def canSlideRight(boardSlice: Array[Option[Int]]): Boolean = {
     val newSlice = slideRight(boardSlice)
 
     newSlice.deep != boardSlice.deep
@@ -24,20 +24,22 @@ object ArrayTransforms {
 
   def slideLeft(boardSlice: Array[Option[Int]]): Array[Option[Int]] = {
 
-    var stack = Stack[Int]()
+    var stack = Stack[MergedInt]()
 
     for (tile <- boardSlice)
       tile match {
         case None =>
         case Some(x) => {
 
-          if (!stack.isEmpty && stack.top == x)
-            stack = stack.pop.push(x * 2)
+          if (!stack.isEmpty && !stack.top.merged && stack.top.value == x)
+            stack = stack.pop.push(MergedInt(true, x * 2))
           else
-            stack = stack.push(x)
+            stack = stack.push(MergedInt(false, x))
         }
       }
 
-    stack.toArray.reverse.map(x => Some(x)).padTo(boardSlice.length, None)
+    stack.map(_.value).toArray.reverse.map(x => Some(x)).padTo(boardSlice.length, None)
   }
 }
+
+case class MergedInt(merged: Boolean, value : Int) { }

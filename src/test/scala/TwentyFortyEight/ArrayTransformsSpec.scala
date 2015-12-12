@@ -96,6 +96,12 @@ object ArrayTransformsSpec extends Specification {
       ArrayTransforms.slideLeft(array) must beEqualTo(Array(Some(4), None,None,None))
     }
 
+    "not merge results of a merge again" in {
+      val array = Array(Some(2),Some(2),Some(4),None)
+
+      ArrayTransforms.slideLeft(array) must beEqualTo(Array(Some(4), Some(4), None, None))
+    }
+
     "remove gaps but preserve order" in {
       val array = Array(Some(2),None,Some(4),None)
 
@@ -121,6 +127,12 @@ object ArrayTransformsSpec extends Specification {
       val array = Array(Some(2),Some(2),None,None)
 
       ArrayTransforms.slideRight(array) must beEqualTo(Array(None, None,None,Some(4)))
+    }
+
+    "not merge results of a merge again" in {
+      val array = Array(Some(4),Some(2),Some(2),None)
+
+      ArrayTransforms.slideRight(array) must beEqualTo(Array(None, None, Some(4), Some(4)))
     }
 
     "remove gaps but preserve order" in {
