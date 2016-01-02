@@ -1,12 +1,13 @@
 package TwentyFortyEight
 
-import TwentyFortyEight.players.{EagerlyMergingPlayer, ConsolePlayer}
+import TwentyFortyEight.players.{ExpectimaxPlayer, ConsolePlayer}
+import TwentyFortyEight.scorers.SmallNumberOfTilesScorer
 
 object Game extends App {
 
   println("Starting 2048")
 
-  var player = new EagerlyMergingPlayer()
+  var player = new ExpectimaxPlayer(new SmallNumberOfTilesScorer())
 
   var gameBoard = GameBoard(4)
 
