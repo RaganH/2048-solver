@@ -1,13 +1,16 @@
 package TwentyFortyEight
 
 import TwentyFortyEight.players.{ExpectimaxPlayer, ConsolePlayer}
-import TwentyFortyEight.scorers.SmallNumberOfTilesScorer
+import TwentyFortyEight.scorers.{LargeTilesOnEdgeScorer, CompositeScorer, SmallNumberOfTilesScorer}
 
 object Game extends App {
 
   println("Starting 2048")
 
-  var player = new ExpectimaxPlayer(new SmallNumberOfTilesScorer())
+  val player = new ExpectimaxPlayer(new CompositeScorer(Array(
+    (0.5, new SmallNumberOfTilesScorer()),
+    (0.5, new LargeTilesOnEdgeScorer())
+  )))
 
   var gameBoard = GameBoard(4)
 

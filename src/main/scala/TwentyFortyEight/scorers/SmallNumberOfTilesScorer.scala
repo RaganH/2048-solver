@@ -3,7 +3,7 @@ package TwentyFortyEight.scorers
 import TwentyFortyEight.GameBoard
 
 class SmallNumberOfTilesScorer extends BoardScorer {
-  def scoreSingleGameBoard(gameBoard : GameBoard) : Int = {
+  def scoreSingleGameBoard(gameBoard : GameBoard) : Double = {
 
     val numberOfTiles = gameBoard.board.flatMap(a => a.map(b =>
       b match {
@@ -12,6 +12,9 @@ class SmallNumberOfTilesScorer extends BoardScorer {
       }
     )).sum
 
-    numberOfTiles / gameBoard.size
+    (numberOfTiles:Double) / (gameBoard.size * gameBoard.size)
   }
 }
+
+
+

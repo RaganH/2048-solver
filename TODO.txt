@@ -1,8 +1,8 @@
 Solver
 -----------------
 
-Implement simple algorithm to provide correct hooks into game
-
+Add test for all scorers.
+Implement minimax playing.
 
 Cleanup
 -----------------
