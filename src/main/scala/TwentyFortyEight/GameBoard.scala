@@ -11,7 +11,7 @@ object GameBoard{
     insertRandomNumber(board)
     insertRandomNumber(board)
 
-    new GameBoard(board)
+    new GameBoard(size, board)
   }
 
   def insertRandomNumber(board: Array[Array[Option[Int]]]) : Unit = {
@@ -38,7 +38,7 @@ object GameBoard{
   }
 }
 
-class GameBoard(val board : Array[Array[Option[Int]]]) {
+class GameBoard(val size : Int, val board : Array[Array[Option[Int]]]) {
 
   def isFinished : Boolean = {
     !canSlide(Left) && !canSlide(Right) && !canSlide(Up) && !canSlide(Down)
@@ -80,7 +80,7 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
     GameBoard.insertRandomNumber(newBoard)
 
-    new GameBoard(newBoard)
+    new GameBoard(size, newBoard)
   }
 
   def allSlideOutcomes(direction : Direction) : Seq[Chance[GameBoard]] = {
@@ -89,8 +89,8 @@ class GameBoard(val board : Array[Array[Option[Int]]]) {
 
     GameBoard.findEmptyCoords(newBoard).flatMap({
       case (x, y) => Array(
-        Chance(0.75, new GameBoard(insertAt(newBoard, x, y, 2))),
-        Chance(0.25, new GameBoard(insertAt(newBoard, x, y, 4)))
+        Chance(0.75, new GameBoard(size, insertAt(newBoard, x, y, 2))),
+        Chance(0.25, new GameBoard(size, insertAt(newBoard, x, y, 4)))
       )
     })
   }

@@ -25,7 +25,7 @@ object GameBoardSpec extends Specification {
         Array[Option[Int]](Some(2), Some(2), None, Some(2))
       )
 
-      val board = new GameBoard(array)
+      val board = new GameBoard(4, array)
 
       board.isFinished must beFalse
 
@@ -40,7 +40,7 @@ object GameBoardSpec extends Specification {
         Array[Option[Int]](Some(2), Some(2), Some(4), Some(2))
       )
 
-      val board = new GameBoard(array)
+      val board = new GameBoard(4, array)
 
       board.isFinished must beFalse
 
@@ -55,7 +55,7 @@ object GameBoardSpec extends Specification {
         Array[Option[Int]](Some(16), Some(2),  Some(16), Some(2))
       )
 
-      val board = new GameBoard(array)
+      val board = new GameBoard(4, array)
 
       board.isFinished must beTrue
 
