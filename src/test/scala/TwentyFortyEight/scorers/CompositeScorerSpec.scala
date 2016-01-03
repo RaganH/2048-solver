@@ -1,9 +1,8 @@
-package TwentyFortyEight.players
+package TwentyFortyEight.scorers
 
 import TwentyFortyEight.GameBoard
-import TwentyFortyEight.scorers.{BoardScorer, CompositeScorer}
-import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
+import org.specs2.mutable.Specification
 
 object CompositeScorerSpec extends Specification with Mockito {
 
