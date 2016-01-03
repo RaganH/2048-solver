@@ -15,34 +15,34 @@ object CompositeScorerSpec extends Specification with Mockito {
       }
     }
 
-    "score single gameboard" should {
+    "score gameboard" should {
 
       "apply weighting to single scorer" in {
         val gameBoard = mock[GameBoard]
 
         val oneScorer = mock[BoardScorer]
-        oneScorer.scoreSingleGameBoard(gameBoard) returns 1d
+        oneScorer.scoreGameBoard(gameBoard) returns 1d
 
         val compositeScorer = new CompositeScorer(Array((0.5, oneScorer)))
 
-        compositeScorer.scoreSingleGameBoard(gameBoard) must beEqualTo(0.5)
+        compositeScorer.scoreGameBoard(gameBoard) must beEqualTo(0.5)
       }
 
       "weight then sum multiple scorers" in {
         val gameBoard = mock[GameBoard]
 
         val oneScorer = mock[BoardScorer]
-        oneScorer.scoreSingleGameBoard(gameBoard) returns 1d
+        oneScorer.scoreGameBoard(gameBoard) returns 1d
 
         val twoScorer = mock[BoardScorer]
-        twoScorer.scoreSingleGameBoard(gameBoard) returns 2d
+        twoScorer.scoreGameBoard(gameBoard) returns 2d
 
         val compositeScorer = new CompositeScorer(Array(
           (0.4, oneScorer),
           (0.6, twoScorer)
         ))
 
-        compositeScorer.scoreSingleGameBoard(gameBoard) must beEqualTo(1.6)
+        compositeScorer.scoreGameBoard(gameBoard) must beEqualTo(1.6)
       }
     }
 }

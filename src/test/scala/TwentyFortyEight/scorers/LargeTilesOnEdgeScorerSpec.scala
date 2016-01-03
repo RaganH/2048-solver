@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 
 object LargeTilesOnEdgeScorerSpec extends Specification {
 
-  "score single gameboard" should {
+  "score gameboard" should {
 
     "score 1 when all tiles are on the edge" in {
       val gameBoard = new GameBoard(3, Array(
@@ -16,7 +16,7 @@ object LargeTilesOnEdgeScorerSpec extends Specification {
 
       val scorer = new LargeTilesOnEdgeScorer()
 
-      scorer.scoreSingleGameBoard(gameBoard) must beEqualTo(1.0)
+      scorer.scoreGameBoard(gameBoard) must beEqualTo(1.0)
     }
 
     "score 0 when no tiles are on the edge" in {
@@ -28,7 +28,7 @@ object LargeTilesOnEdgeScorerSpec extends Specification {
 
       val scorer = new LargeTilesOnEdgeScorer()
 
-      scorer.scoreSingleGameBoard(gameBoard) must beEqualTo(0.0)
+      scorer.scoreGameBoard(gameBoard) must beEqualTo(0.0)
     }
 
     "score high when high value tiles on the edge" in {
@@ -40,7 +40,7 @@ object LargeTilesOnEdgeScorerSpec extends Specification {
 
       val scorer = new LargeTilesOnEdgeScorer()
 
-      scorer.scoreSingleGameBoard(gameBoard) must beEqualTo((2048:Double)/2050)
+      scorer.scoreGameBoard(gameBoard) must beEqualTo((2048:Double)/2050)
     }
 
     "score low when high value tiles in the middle" in {
@@ -52,7 +52,7 @@ object LargeTilesOnEdgeScorerSpec extends Specification {
 
       val scorer = new LargeTilesOnEdgeScorer()
 
-      scorer.scoreSingleGameBoard(gameBoard) must beEqualTo((2:Double)/2050)
+      scorer.scoreGameBoard(gameBoard) must beEqualTo((2:Double)/2050)
     }
   }
 }

@@ -41,7 +41,7 @@ class ExpectimaxPlayer(recursionDepth : Int, scorer: BoardScorer) extends Player
       }
     }
     else {
-      (Left, scorer.scoreSingleGameBoard(gameBoard))
+      (Left, scorer.scoreGameBoard(gameBoard))
     }
   }
 }

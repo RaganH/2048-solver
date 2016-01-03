@@ -6,10 +6,10 @@ class CompositeScorer(weightedScorers : Seq[(Double, BoardScorer)]) extends Boar
 
   require(weightedScorers.length > 0, "Cannot combine no scorers")
 
-  override def scoreSingleGameBoard(gameBoard: GameBoard): Double = {
+  override def scoreGameBoard(gameBoard: GameBoard): Double = {
 
     weightedScorers.map( { case (weight, scorer) =>
-      weight * scorer.scoreSingleGameBoard(gameBoard)
+      weight * scorer.scoreGameBoard(gameBoard)
     }).sum
 
   }

@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 
 object SmallNumberOfTilesScorerSpec extends Specification {
 
-   "score single gameboard" should {
+   "score gameboard" should {
 
      "score 1 for an empty gameboard" in {
        val gameBoard = new GameBoard(2, Array(
@@ -15,7 +15,7 @@ object SmallNumberOfTilesScorerSpec extends Specification {
 
        val scorer = new SmallNumberOfTilesScorer()
 
-       scorer.scoreSingleGameBoard(gameBoard) must beEqualTo(1.0)
+       scorer.scoreGameBoard(gameBoard) must beEqualTo(1.0)
      }
 
      "score 0 for a full gameboard" in {
@@ -26,7 +26,7 @@ object SmallNumberOfTilesScorerSpec extends Specification {
 
        val scorer = new SmallNumberOfTilesScorer()
 
-       scorer.scoreSingleGameBoard(gameBoard) must beEqualTo(0.0)
+       scorer.scoreGameBoard(gameBoard) must beEqualTo(0.0)
      }
 
      "score 0.5 for a half full gameboard" in {
@@ -37,7 +37,7 @@ object SmallNumberOfTilesScorerSpec extends Specification {
 
        val scorer = new SmallNumberOfTilesScorer()
 
-       scorer.scoreSingleGameBoard(gameBoard) must beEqualTo(0.5)
+       scorer.scoreGameBoard(gameBoard) must beEqualTo(0.5)
      }
    }
 }

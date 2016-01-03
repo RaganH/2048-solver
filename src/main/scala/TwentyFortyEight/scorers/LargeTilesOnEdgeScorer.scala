@@ -3,7 +3,7 @@ package TwentyFortyEight.scorers
 import TwentyFortyEight.GameBoard
 
 class LargeTilesOnEdgeScorer extends BoardScorer {
-  def scoreSingleGameBoard(gameBoard : GameBoard) : Double = {
+  def scoreGameBoard(gameBoard : GameBoard) : Double = {
 
     var tileValuesOnEdge = 0
 
