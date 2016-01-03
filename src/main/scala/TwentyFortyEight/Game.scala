@@ -7,7 +7,7 @@ object Game extends App {
 
   println("Starting 2048")
 
-  val player = new ExpectimaxPlayer(new CompositeScorer(Array(
+  val player = new ExpectimaxPlayer(2, new CompositeScorer(Array(
     (0.5, new SmallNumberOfTilesScorer()),
     (0.5, new LargeTilesOnEdgeScorer())
   )))

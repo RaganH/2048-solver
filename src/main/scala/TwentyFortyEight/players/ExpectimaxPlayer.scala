@@ -3,13 +3,13 @@ package TwentyFortyEight.players
 import TwentyFortyEight._
 import TwentyFortyEight.scorers.BoardScorer
 
-class ExpectimaxPlayer(scorer: BoardScorer) extends Player {
+class ExpectimaxPlayer(recursionDepth : Int, scorer: BoardScorer) extends Player {
 
   val directions = Array(Left, Up, Right, Down)
 
   override def getMoveDirection(gameBoard: GameBoard): Direction = {
 
-    player(gameBoard, 2)._1
+    player(gameBoard, recursionDepth)._1
 
   }
 
